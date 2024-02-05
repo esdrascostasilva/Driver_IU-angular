@@ -15,6 +15,7 @@ export class AppComponent {
   constructor(private driverService: DriverService) {}
 
   ngOnInit(): void {
-    this.drivers = this.driverService.getDrivers();
+    this.driverService.getDrivers()
+          .subscribe((result: Driver[]) => (this.drivers = result));
   }
 }

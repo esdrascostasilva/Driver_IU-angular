@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Driver } from '../models/driver';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DriverService {
-  constructor() {}
 
-  public getDrivers(): Driver[] {
-    let driver = new Driver();
-    driver.name = 'Lewis Hamilton';
-    driver.id = 1;
-    driver.number = '44';
-    driver.team = 'Mercedez até pouco tempo';
+  url = "/Driver";
 
-    return [driver];
+  constructor(private http: HttpClient) {}
+
+  public getDrivers(): Observable<Driver[]> {
+    return this.http.get<Driver[]>(`${environment.apiUrl}${this.url}`);
   }
 }
